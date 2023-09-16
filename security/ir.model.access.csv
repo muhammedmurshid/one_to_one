@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_meeting_coordinator,access_coordinator,model_one_to_one_meeting,one_to_one_coordinator,1,1,1,1
+access_meeting_hr,access_coordinator,model_one_to_one_meeting,one_to_one_hr_manager,1,1,1,1

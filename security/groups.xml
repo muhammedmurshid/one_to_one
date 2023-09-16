@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.module.category" id="group_one_to_one_meeting">
+            <field name="name">One To One</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="one_to_one_hr_manager" model="res.groups">
+            <field name="name">HR Manager</field>
+            <field name="category_id" ref="one_to_one.group_one_to_one_meeting"/>
+        </record>
+        <record id="one_to_one_coordinator" model="res.groups">
+            <field name="name">Coordinator</field>
+            <field name="category_id" ref="one_to_one.group_one_to_one_meeting"/>
+        </record>
+
+    </data>
+</odoo>

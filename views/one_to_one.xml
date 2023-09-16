@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="model_one_to_one_meeting_form_view" model="ir.ui.view">
+        <field name="name">One To One Meeting</field>
+        <field name="model">one_to_one.meeting</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="One to One Meeting">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="student_name"/>
+                            <field name="reason_for_meeting"/>
+                            <field name="late_by" attrs="{'invisible':[('reason_for_meeting', '!=', 'late_comer')]}"
+                                   widget="float_time"/>
+                            <field name="programme"
+                                   attrs="{'invisible':[('reason_for_meeting', '!=', 'not_attending_programme')]}"/>
+                            <field name="mode_of_study"
+                                   attrs="{'invisible':[('reason_for_meeting', '!=', 'poor_performance')]}"/>
+                            <field name="remarks"/>
+                        </group>
+                        <group>
+                            <field name="coordinator_id" readonly="1"/>
+                            <field name="start_time"/>
+                            <field name="end_time"/>
+                            <field name="time_difference" widget="float_time"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="one_to_one_tree" model="ir.ui.view">
+        <field name="name">One To One</field>
+        <field name="model">one_to_one.meeting</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="student_name"/>
+                <field name="reason_for_meeting"/>
+                <field name="time_difference" widget="float_time"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="one_to_one_meeting_action">
+        <field name="name">One To One</field>
+        <field name="res_model">one_to_one.meeting</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="One To One"
+              id="one_to_one_menu_main"
+              web_icon="one_to_one/static/description/icon.png"
+              sequence="10"/>
+
+    <menuitem name="Meeting" id="menu_for_one_to_one_meeting"
+              action="one_to_one_meeting_action"
+              parent="one_to_one_menu_main"
+              sequence="1"/>
+
+
+</odoo>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.rule" id="my_rule_one_to_one">
+        <field name="name">Coordinator Own Records</field>
+        <field name="model_id" ref="model_one_to_one_meeting"/>
+        <field name="domain_force">[('coordinator_id.id','=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('one_to_one.one_to_one_coordinator'))]"/>
+    </record>
+</odoo>
