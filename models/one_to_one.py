@@ -20,6 +20,10 @@ class OneToOneMeetingForm(models.Model):
     name = fields.Char(string="Name", compute="_compute_rec_name")
     start_time = fields.Datetime(string="Start Time")
     end_time = fields.Datetime(string="End Time")
+    meeting_with = fields.Selection([('student', 'Student'), ('parent', 'Parent'), ('other', 'Other')], string="Meeting With")
+    other_meeting_with = fields.Char(string="Specify Reason")
+    added_date = fields.Date(string="Added Date", default=lambda self: fields.Date.context_today(self))
+
 
     @api.depends('student_name')
     def _compute_rec_name(self):
@@ -30,6 +34,7 @@ class OneToOneMeetingForm(models.Model):
                 rec.name = 'One to One Meeting for ' + rec.student_name.name
 
     time_difference = fields.Float(string="Total Duration", compute="_compute_duration", store=True)
+
     @api.depends('start_time', 'end_time')
     def _compute_duration(self):
         for record in self:
