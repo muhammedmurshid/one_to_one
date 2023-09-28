@@ -17,13 +17,13 @@ class OneToOneMeetingForm(models.Model):
     programme = fields.Selection(
         [('sfc', 'SFC'), ('upaya', 'Upaya'), ('yes_plus', 'Yes Plus'), ('mock_interview', 'Mock Interview'),
          ('other', 'Other')], string="Programme")
-    name = fields.Char(string="Name", compute="_compute_rec_name")
+    name = fields.Char(string="Name", compute="_compute_rec_name", store=True, default='')
     start_time = fields.Datetime(string="Start Time")
     end_time = fields.Datetime(string="End Time")
-    meeting_with = fields.Selection([('student', 'Student'), ('parent', 'Parent'), ('other', 'Other')], string="Meeting With")
+    type = fields.Selection([('online', 'Online'), ('offline', 'Offline')], string="Type")
+    meeting_with = fields.Selection([('student', 'Student'), ('parent', 'Parent'), ('both', 'Both'), ('other', 'Other')], string="Meeting With")
     other_meeting_with = fields.Char(string="Specify Reason")
     added_date = fields.Date(string="Added Date", default=lambda self: fields.Date.context_today(self))
-
 
     @api.depends('student_name')
     def _compute_rec_name(self):

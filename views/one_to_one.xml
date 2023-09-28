@@ -10,6 +10,7 @@
                     <group>
                         <group>
                             <field name="student_name"/>
+                            <field name="type"/>
                             <field name="meeting_with"/>
                             <field name="other_meeting_with" attrs="{'invisible':[('meeting_with', '!=', 'other')]}"/>
                             <field name="reason_for_meeting"/>
