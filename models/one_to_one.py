@@ -5,6 +5,7 @@ class OneToOneMeetingForm(models.Model):
     _name = 'one_to_one.meeting'
     _description = 'One To One Meeting'
     _inherit = ['mail.thread', 'mail.activity.mixin']
+    _rec_name = 'student_name'
 
     student_name = fields.Many2one('logic.students', string="Student Name", required=True)
     reason_for_meeting = fields.Selection([('poor_performance', 'Poor Performance'), ('late_comer', 'Late Comer'),
@@ -17,7 +18,7 @@ class OneToOneMeetingForm(models.Model):
     programme = fields.Selection(
         [('sfc', 'SFC'), ('upaya', 'Upaya'), ('yes_plus', 'Yes Plus'), ('mock_interview', 'Mock Interview'),
          ('other', 'Other')], string="Programme")
-    name = fields.Char(string="Name", compute="_compute_rec_name", store=True, default='')
+    name = fields.Char(string="Name", default='')
     start_time = fields.Datetime(string="Start Time")
     end_time = fields.Datetime(string="End Time")
     type = fields.Selection([('online', 'Online'), ('offline', 'Offline')], string="Type")
@@ -25,13 +26,13 @@ class OneToOneMeetingForm(models.Model):
     other_meeting_with = fields.Char(string="Specify Reason")
     added_date = fields.Date(string="Added Date", default=lambda self: fields.Date.context_today(self))
 
-    @api.depends('student_name')
-    def _compute_rec_name(self):
-        for rec in self:
-            if rec.reason_for_meeting:
-                rec.name = rec.student_name.name + ' - ' + rec.reason_for_meeting
-            else:
-                rec.name = 'One to One Meeting for ' + rec.student_name.name
+    # @api.depends('student_name')
+    # def _compute_rec_name(self):
+    #     for rec in self:
+    #         if rec.reason_for_meeting:
+    #             rec.name = rec.student_name.name + ' - ' + rec.reason_for_meeting
+    #         else:
+    #             rec.name = 'One to One Meeting for ' + rec.student_name.name
 
     time_difference = fields.Float(string="Total Duration", compute="_compute_duration", store=True)
 
