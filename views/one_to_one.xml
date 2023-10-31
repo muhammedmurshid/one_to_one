@@ -9,7 +9,7 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="student_name"/>
+                            <field name="student_name" options="{'no_create': True}"/>
                             <field name="type"/>
                             <field name="meeting_with"/>
                             <field name="other_meeting_with" attrs="{'invisible':[('meeting_with', '!=', 'other')]}"/>
