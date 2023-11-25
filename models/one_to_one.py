@@ -14,15 +14,18 @@ class OneToOneMeetingForm(models.Model):
     remarks = fields.Text(string="Remarks")
     late_by = fields.Float(string="Late By")
     mode_of_study = fields.Char(string="Mode of Study")
-    coordinator_id = fields.Many2one('res.users', string="Coordinator", default=lambda self: self.env.user.id,)
+    coordinator_id = fields.Many2one('res.users', string="Coordinator", default=lambda self: self.env.user.id, )
     programme = fields.Selection(
         [('sfc', 'SFC'), ('upaya', 'Upaya'), ('yes_plus', 'Yes Plus'), ('mock_interview', 'Mock Interview'),
          ('other', 'Other')], string="Programme")
     name = fields.Char(string="Name", default='')
+    admission_officer = fields.Many2one('res.users', string="Admission Officer",
+                                        related="student_name.admission_officer")
     start_time = fields.Datetime(string="Start Time")
     end_time = fields.Datetime(string="End Time")
     type = fields.Selection([('online', 'Online'), ('offline', 'Offline')], string="Type")
-    meeting_with = fields.Selection([('student', 'Student'), ('parent', 'Parent'), ('both', 'Both'), ('other', 'Other')], string="Meeting With")
+    meeting_with = fields.Selection(
+        [('student', 'Student'), ('parent', 'Parent'), ('both', 'Both'), ('other', 'Other')], string="Meeting With")
     other_meeting_with = fields.Char(string="Specify Reason")
     added_date = fields.Date(string="Added Date", default=lambda self: fields.Date.context_today(self))
 

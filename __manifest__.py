@@ -2,7 +2,7 @@
     'name': "One To One",
     'version': "14.0.1.0",
     'sequence': "0",
-    'depends': ['base', 'mail'],
+    'depends': ['base', 'mail', 'logic_base'],
     'data': [
         'security/groups.xml',
         'security/ir.model.access.csv',
