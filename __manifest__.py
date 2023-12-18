@@ -7,7 +7,9 @@
         'security/groups.xml',
         'security/ir.model.access.csv',
         'security/record_rule.xml',
-        'views/one_to_one.xml'
+        'views/one_to_one.xml',
+        'views/employee_meeting.xml',
+        'datas/activity.xml',
 
     ],
     'demo': [],

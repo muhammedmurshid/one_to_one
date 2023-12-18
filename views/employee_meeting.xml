@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="model_one_to_one_meeting_for_employee_form_view" model="ir.ui.view">
+        <field name="name">One To One Meeting</field>
+        <field name="model">employee.one.to.one.meeting</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="One to One Meeting">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button name="action_schedule" string="Schedule" type="object" class="oe_highlight" states="draft" groups="one_to_one.one_to_one_hr_manager"/>
+                    <button name="action_completed" string="Completed" type="object" states="scheduled"
+                            class="oe_highlight" groups="one_to_one.one_to_one_hr_manager"/>
+                    <button name="action_cancel" string="Cancel" type="object" states="scheduled" groups="one_to_one.one_to_one_hr_manager"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Completed" bg_color="bg-success"
+                            attrs="{'invisible': [('state', '!=', 'completed')]}"/>
+                    <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger"
+                            attrs="{'invisible': [('state', '!=', 'cancel')]}"/>
+
+                    <group>
+                        <group>
+                            <field name="employee_id" options="{'no_create': True}"/>
+                            <field name="type"/>
+                            <field name="reason_for_meeting"/>
+                            <field name="late_by" attrs="{'invisible':[('reason_for_meeting', '!=', 'late_comer')]}"
+                                   widget="float_time"/>
+                            <field name="programme"
+                                   attrs="{'invisible':[('reason_for_meeting', '!=', 'not_attending_programme')]}"/>
+                            <field name="remarks"/>
+                        </group>
+                        <group>
+                            <field name="meeting_date"/>
+                            <field name="start_time" widget="float_time"/>
+                            <field name="end_time" widget="float_time"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="one_to_one_for_employee_tree" model="ir.ui.view">
+        <field name="name">One To One</field>
+        <field name="model">employee.one.to.one.meeting</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="reason_for_meeting"/>
+                <field name="state" widget="badge" decoration-success="state == 'completed'"
+                       decoration-danger="state == 'cancel'"
+                       decoration-info="state == 'scheduled'"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="one_to_one_meeting_for_employee_action">
+        <field name="name">One To One</field>
+        <field name="res_model">employee.one.to.one.meeting</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Employees Meeting" id="menu_for_one_to_one_for_employee_meeting"
+              action="one_to_one_meeting_for_employee_action"
+              parent="one_to_one_menu_main"
+              sequence="2"/>
+
+
+</odoo>

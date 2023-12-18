@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="mail_activity_one_to_one_meeting" model="mail.activity.type">
+            <field name="name">One To One Employee Meeting</field>
+            <field name="res_model_id" ref="one_to_one.model_employee_one_to_one_meeting"/>
+            <field name="delay_count">30</field>
+        </record>
+    </data>
+</odoo>
