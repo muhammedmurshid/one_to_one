@@ -45,6 +45,7 @@
         <field name="model">one_to_one.meeting</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="added_date"/>
                 <field name="student_name"/>
                 <field name="reason_for_meeting"/>
                 <field name="time_difference" widget="float_time"/>
